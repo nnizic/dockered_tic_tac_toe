@@ -3,6 +3,7 @@
 import asyncio
 
 import aiohttp
+
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 
@@ -33,7 +34,7 @@ def provjeri_pobjednika(polje):
         except IndexError as e:
             print(f"Greška pri pristupu: {e}")
             return None
-        return None
+    return None
 
 
 async def stream_game():
