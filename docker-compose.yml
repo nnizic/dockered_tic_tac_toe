@@ -22,6 +22,13 @@ services:
     networks:
       - servisna_mreza
 
+  servis4:
+    image: servis4:1.0
+    ports:
+      - '8004:8004'
+    networks:
+      - servisna_mreza
+
 networks:
   servisna_mreza:
     driver: bridge
