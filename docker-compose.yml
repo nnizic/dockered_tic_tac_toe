@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  servis1:
+    image: servis1:1.0
+    ports:
+      - '8001:8001'
+    networks:
+      - servisna_mreza
+
+  servis2:
+    image: servis2:1.0
+    ports:
+      - '8002:8002'
+    networks:
+      - servisna_mreza
+
+  servis3:
+    image: servis3:1.0
+    ports:
+      - '8003:8003'
+    networks:
+      - servisna_mreza
+
+networks:
+  servisna_mreza:
+    driver: bridge
