@@ -49,16 +49,7 @@ async def stream_game():
             podaci = await response.json()
             polje = podaci["polje"]
             pobjednik = provjeri_pobjednika(polje)
-            json_data = json.dumps(
-                {"poruka": f"Potez {potez_broj+1}", "polje": polje}
-            )  # Ispravni JSON
-            json_data = json.dumps(
-                {"poruka": f"Potez {potez_broj+1}", "polje": polje}
-            )  # Ispravni JSON
-            json_data = json.dumps(
-                {"poruka": f"Potez {potez_broj+1}", "polje": polje}
-            )  # Ispravni JSON
-
+            json_data = json.dumps({"poruka": f"Potez {potez_broj+1}", "polje": polje})  # Ispravni JSON
             yield f"data: {json_data}\n\n"  # Ispravan SSE format
         potez_broj += 1
         await asyncio.sleep(1)
@@ -68,43 +59,6 @@ async def stream_game():
     else:
         json_data = json.dumps({"poruka": "Neriješeno!", "polje": polje})
     yield f"data: {json_data}\n\n"
-
-
-# async def stream_game():
-
-# async def stream_game():
-#    polje = [[" "] * 3 for _ in range(3)]
-#    potez_broj = 0
-#    pobjednik = None
-#
-#    while potez_broj < 9 and pobjednik is None:
-#        servis_url = SERVIS_2_URL if potez_broj % 2 == 0 else SERVIS_3_URL
-#        servis_naziv = "Servis 2 (X)" if servis_url == SERVIS_2_URL else "Servis 3 (O)"
-#
-#        async with aiohttp.ClientSession() as session:
-#            response = await session.post(servis_url, json={"polje": polje})
-#
-#            try:
-#                podaci = await response.json()
-#            except Exception as e:
-#                print("Neuspješno parsiranje JSON-a:", e)
-#                podaci = {}
-#            print("Odgovor servisa:", podaci)
-#
-#            if "polje" not in podaci:
-#                print("Greška: ključ 'polje' ne postoji u odgovoru!", podaci)
-#                return
-#            polje = podaci["polje"]
-#            pobjednik = provjeri_pobjednika(polje)
-#
-#            yield f'data: {{"poruka":"{servis_naziv} je odigrao", "polje": {polje}}}\n\n'
-#        potez_broj += 1
-#        await asyncio.sleep(1)
-#
-#    if pobjednik:
-#        yield f'data: {{"poruka": "Pobjednik je {pobjednik}!", "polje": {polje}}}\n\n'
-#    else:
-#        yield f'data: {{"poruka": "Neriješeno!", "polje": {polje}}}\n\n'
 
 
 @app.post("/start")
