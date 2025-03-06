@@ -2,10 +2,14 @@
 
 import asyncio
 import json
+import sys
 
 import aiohttp
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
+
+# postavljanje encodinga na UTF-8
+sys.stdout.reconfigure(encoding="utf-8")
 
 app = FastAPI()
 
