@@ -1,8 +1,8 @@
-"""Servis 3 (Igrač O)"""
+"""Servis Igrač O"""
 
 import random
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -37,6 +37,8 @@ def odigraj_random(polje):
 @app.post("/odigraj")
 async def odigraj_potez(podaci: PoljeModel):
     """Prima trenutno stanje polja i vraća novo stanje ( nakon poteza )"""
+    if random.random() < 0.2:  # dodaje 20% šanse da servis padne
+        raise HTTPException(status_code=500, detail="Greška u servisu")
     polje = podaci.polje
     strategija = random.choice([odigraj_na_slobodno, odigraj_random])
     polje = strategija(polje)

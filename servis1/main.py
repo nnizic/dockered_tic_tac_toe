@@ -37,20 +37,43 @@ def provjeri_pobjednika(polje):
     return None
 
 
+async def async_retry_request(url, json_data, max_retries=5):
+    """Asinkroni HTTP poziv s retry mehanizmom i exponential backoff-om"""
+    delay = 1  # Početno kašnjenje u sekundama
+    for attempt in range(max_retries):
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.post(url, json=json_data) as response:
+                    if response.status == 200:
+                        return await response.json()
+                    print(f"Greška {response.status}, pokušaj {attempt+1}/{max_retries}")
+        except aiohttp.ClientError as e:
+            print(f"Greška: {e}, pokušaj {attempt + 1}/{max_retries}")
+
+        await asyncio.sleep(delay)
+        delay *= 2  # Exponential backoff
+
+    raise Exception(f"Neuspješno dohvaćanje podataka s {url} nakon {max_retries} pokušaja.")
+
+
 async def stream_game():
+    """upravljanje igrom s retry mehanizmom"""
     polje = [[" "] * 3 for _ in range(3)]
     potez_broj = 0
     pobjednik = None
 
     while potez_broj < 9 and pobjednik is None:
         servis_url = SERVIS_2_URL if potez_broj % 2 == 0 else SERVIS_3_URL
-        async with aiohttp.ClientSession() as session:
-            response = await session.post(servis_url, json={"polje": polje})
-            podaci = await response.json()
+        servis_naziv = "Igrač X" if servis_url == SERVIS_2_URL else "Igrač O"
+
+        try:
+            podaci = await async_retry_request(servis_url, {"polje": polje})
             polje = podaci["polje"]
-            pobjednik = provjeri_pobjednika(polje)
-            json_data = json.dumps({"poruka": f"Potez {potez_broj+1}", "polje": polje})  # Ispravni JSON
-            yield f"data: {json_data}\n\n"  # Ispravan SSE format
+            yield f'data: {{"poruka":"{servis_naziv} je odigrao", "polje": {polje}}}\n\n'
+        except Exception as e:
+            yield f'data: {{"poruka": "Greška u komunikaciji: {str(e)}"}}\n\n'
+            break  # Ako servis ne odgovori nakon svih pokušaja prekid igre
+
         potez_broj += 1
         await asyncio.sleep(1)
 
