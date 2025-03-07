@@ -70,9 +70,10 @@ async def stream_game():
         try:
             podaci = await async_retry_request(servis_url, {"polje": polje})
             polje = podaci["polje"]
-            yield f'data: {{"poruka":"{servis_naziv} je odigrao", "polje": {polje}}}\n\n'
+            pobjednik = provjeri_pobjednika(polje)
+            yield f'data: {json.dumps({"poruka":f"{servis_naziv} je odigrao", "polje": polje})}\n\n'
         except Exception as e:
-            yield f'data: {{"poruka": "Greška u komunikaciji: {str(e)}"}}\n\n'
+            yield f'data: {{"poruka": f"Greška u komunikaciji: {str(e)}"}}\n\n'
             break  # Ako servis ne odgovori nakon svih pokušaja prekid igre
 
         potez_broj += 1
