@@ -16,8 +16,7 @@ async def salji_zahtjev(session, request_id):
                 decoded_line = line.decode("utf-8").strip()
                 print(f"[Zahtjev {request_id}] {decoded_line.encode().decode('unicode_escape')}")
     except Exception as e:
-        error_msg = str(e).encode("utf-8", "ignore").decode("utf-8", "ignore")
-        print(f"[Zahtjev {request_id}] Greška: {error_msg}")
+        print(type(e), e.args)
 
 
 async def main():
