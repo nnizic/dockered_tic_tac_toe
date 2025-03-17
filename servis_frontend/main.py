@@ -1,12 +1,13 @@
 """frontend za dockerirani križić kružić"""
 
-from flask import Flask, Response, render_template
 import requests
+
+from flask import Flask, Response, render_template
 
 
 app = Flask(__name__)
 
-SERVIS_1_URL = "http://servis1:8001/start"
+SERVIS_1_URL = "http://servis_igra:8001/start"
 
 
 @app.route("/")

@@ -6,23 +6,23 @@ This project is a distributed microservices-based Tic-Tac-Toe game built using F
 
 The system consists of four services:
 
-1. **Service 1 (Game Manager - FastAPI)**
+1. **Service 1: [servis_igra] (Game Manager - FastAPI)**
 
    - Controls the game loop.
    - Sends the Tic-Tac-Toe board to player services.
    - Determines the winner and handles retries in case of failures.
 
-2. **Service 2 (Player X - FastAPI)**
+2. **Service 2: [servis_igrac_x] (Player X - FastAPI)**
 
    - Plays as `X`.
    - Chooses moves based on random strategy or the first available position.
 
-3. **Service 3 (Player O - FastAPI)**
+3. **Service 3: [servis_igrac_o] (Player O - FastAPI)**
 
    - Plays as `O`.
    - Chooses moves based on random strategy or the first available position.
 
-4. **Service 4 (Frontend - Flask)**
+4. **Service 4: [servis_frontend] (Frontend - Flask)**
    - Displays the game board in a web browser.
    - Streams real-time updates from Service 1.
 
@@ -33,7 +33,6 @@ The system consists of four services:
 - **Random failure simulation** for testing fault tolerance.
 - **Event streaming** for real-time updates in the frontend.
 - **Dockerized deployment** with Docker Compose.
-- **CI/CD pipeline** using GitHub Actions, Docker Hub, and Render for automated deployments.
 
 ## Requirements
 
@@ -79,18 +78,9 @@ The system consists of four services:
 - **GET `/`** – Serves the web interface.
 - **GET `/stream`** – Streams real-time game updates.
 
-## Deployment
-
-Each service is deployed separately using GitHub Actions:
-
-1. Code changes trigger an **automated build**.
-2. The Docker image is **pushed to Docker Hub**.
-3. Render **redeploys the updated service** automatically.
-
 ## TODO
 
 - Improve AI logic for smarter gameplay.
-- Implement user vs AI mode.
 - Add unit tests for better reliability.
 
 ## Organization

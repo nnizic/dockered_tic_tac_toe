@@ -1,31 +1,40 @@
 version: '3.8'
 
 services:
-  servis1:
-    image: servis1:1.0
+  servis_igra:
+    build: ./servis_igra
     ports:
-      - '8001:8001'
+      - "8001:8001"
+    depends_on:
+      - servis_igrac_x
+      - servis_igrac_o
+    restart: unless-stopped
     networks:
       - servisna_mreza
 
-  servis2:
-    image: servis2:1.0
+  servis_igrac_x:
+    build: ./servis_igrac_x
     ports:
-      - '8002:8002'
+      - "8002:8002"
+    restart: unless-stopped
     networks:
       - servisna_mreza
 
-  servis3:
-    image: servis3:1.0
+  servis_igrac_o:
+    build: ./servis_igrac_o
     ports:
-      - '8003:8003'
+      - "8003:8003"
+    restart: unless-stopped
     networks:
       - servisna_mreza
 
-  servis4:
-    image: servis4:1.0
+  servis_frontend:
+    build: ./servis_frontend
     ports:
-      - '8004:8004'
+      - "8004:8004"
+    depends_on:
+      - servis_igra
+    restart: unless-stopped
     networks:
       - servisna_mreza
 

@@ -4,14 +4,15 @@ import asyncio
 import json
 
 import aiohttp
+
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 
 
 app = FastAPI()
 
-SERVIS_2_URL = "http://servis2:8002/odigraj"
-SERVIS_3_URL = "http://servis3:8003/odigraj"
+SERVIS_2_URL = "http://servis_igrac_x:8002/odigraj"
+SERVIS_3_URL = "http://servis_igrac_o:8003/odigraj"
 
 
 def provjeri_pobjednika(polje):
