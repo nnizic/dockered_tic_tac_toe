@@ -17,7 +17,7 @@ The system consists of four services:
    - Plays as `X` or `o`.
    - Chooses moves based on simbol's strategy.
 
-3. **Service 3: [servis_igra4. **Service 4: [servis_frontend] (Frontend - Flask)\*\*
+3. \*\*Service 3: [servis_frontend] (Frontend - Flask)\*\*
    - Displays the game board in a web browser.
    - Streams real-time updates from Service 1.
 
@@ -64,7 +64,7 @@ The system consists of four services:
 
 - **POST `/start`** – Starts the game and streams updates.
 
-### Service 2 (Player & Player O)
+### Service 2 (Player X & Player O)
 
 - **POST `/odigraj`** – Accepts the current game state and returns an updated board.
 
