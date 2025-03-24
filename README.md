@@ -6,23 +6,18 @@ This project is a distributed microservices-based Tic-Tac-Toe game built using F
 
 The system consists of four services:
 
-1. **Service 1: [servis_igra] (Game Manager - FastAPI)**
+1. **Service 1: [servis_nova_igra] (Game Manager - FastAPI)**
 
    - Controls the game loop.
    - Sends the Tic-Tac-Toe board to player services.
    - Determines the winner and handles retries in case of failures.
 
-2. **Service 2: [servis_igrac_x] (Player X - FastAPI)**
+2. **Service 2: [servis_igraci] (Players X and O - FastAPI)**
 
-   - Plays as `X`.
-   - Chooses moves based on random strategy or the first available position.
+   - Plays as `X` or `o`.
+   - Chooses moves based on simbol's strategy.
 
-3. **Service 3: [servis_igrac_o] (Player O - FastAPI)**
-
-   - Plays as `O`.
-   - Chooses moves based on random strategy or the first available position.
-
-4. **Service 4: [servis_frontend] (Frontend - Flask)**
+3. **Service 3: [servis_igra4. **Service 4: [servis_frontend] (Frontend - Flask)\*\*
    - Displays the game board in a web browser.
    - Streams real-time updates from Service 1.
 
@@ -69,19 +64,14 @@ The system consists of four services:
 
 - **POST `/start`** – Starts the game and streams updates.
 
-### Service 2 (Player X) & Service 3 (Player O)
+### Service 2 (Player & Player O)
 
 - **POST `/odigraj`** – Accepts the current game state and returns an updated board.
 
-### Service 4 (Frontend)
+### Service 3 (Frontend)
 
 - **GET `/`** – Serves the web interface.
 - **GET `/stream`** – Streams real-time game updates.
-
-## TODO
-
-- Improve AI logic for smarter gameplay.
-- Add unit tests for better reliability.
 
 ## Organization
 

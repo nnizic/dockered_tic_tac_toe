@@ -1,29 +1,20 @@
 version: '3.8'
 
 services:
-  servis_igra:
-    build: ./servis_igra
+  servis_nova_igra:
+    build: ./servis_nova_igra
     ports:
       - "8001:8001"
     depends_on:
-      - servis_igrac_x
-      - servis_igrac_o
+      - servis_igraci
     restart: unless-stopped
     networks:
       - servisna_mreza
 
-  servis_igrac_x:
-    build: ./servis_igrac_x
+  servis_igraci:
+    build: ./servis_igraci
     ports:
       - "8002:8002"
-    restart: unless-stopped
-    networks:
-      - servisna_mreza
-
-  servis_igrac_o:
-    build: ./servis_igrac_o
-    ports:
-      - "8003:8003"
     restart: unless-stopped
     networks:
       - servisna_mreza
@@ -32,8 +23,6 @@ services:
     build: ./servis_frontend
     ports:
       - "8004:8004"
-    depends_on:
-      - servis_igra
     restart: unless-stopped
     networks:
       - servisna_mreza

@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const polje = data.polje;
       const poruka = data.poruka;
+      const strategija = data.strategija;
 
+      document.getElementById('strategija').innerText = strategija;
       document.getElementById('poruka').innerText = poruka;
       const cells = document.querySelectorAll('#tabla td');
       let index = 0;
